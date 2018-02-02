@@ -346,26 +346,44 @@ tibble(
 #> 5 Areo Hotah        <chr [1]>
 #> 6 Chett             <chr [1]>
 ```
+-   workflow:
+    -   do something easy with iterative machine
+    -   do real hard thing with one representative unit
+    -   do hard thing with iterative machine
+-   `pmap` can iterate over every row of a data frame, including and most especially tibbles where you have list columns
+-   after the break we will have "choose your own adventure" time
 
-  - workflow:
-      - do something easy with iterative machine
-      - do real hard thing with one representative unit
-      - do hard thing with iterative machine
-  - `pmap` can iterate over every row of a data frame, including and
-    most especially tibbles where you have list columns
-  - after the break we will have “choose your own adventure” time
+Day 2 afternoon - choose your own adventure
+-------------------------------------------
 
-# Q’s
+-   I chose to make a [dotfiles repo](https://github.com/jminnier/dotfiles)
+-   JB made a gallery of the O'Rly? covers [here](https://github.com/jennybc/orly-full-res#readme) along with hyperlinks!
 
-  - what about versioning data? for small to medium you can easily use
-    github, might need to just keep it in a separate repo and git that,
-    or might need to use gitfs for large file systems
-  - in the analysis pipeline, if I want to generate an html (or pdf etc)
-    file along with the github\_document, is there a way to always
-    generate both? you can “keep md” but can you “keep
-    github\_document”? Sort of, but you need to use
-    `rmarkdown::render` (in theory, though JB can’t get it to work yet
-    for github\_docs…)
-  - why is `fs` package making my Rstudio crash every time I want to
-    view an object created with it? May be related to this
-    [issue](https://github.com/r-lib/fs/issues/58)
+``` r
+fig_files <- c(
+"https://github.com/jennybc/orly-full-res/blob/master/changinstuff-big.png",
+"https://github.com/jennybc/orly-full-res/blob/master/uninformativegitcommit-big.png")
+fig_files_smaller <- gsub("(^.*)(\\.png$)", "\\1-smaller\\2", fig_files)
+
+tags <- sprintf("<a href=\"%s\"><img src=\"%s\"></a>",
+                fig_files, fig_files_smaller)
+cat(tags)
+#> <a href="https://github.com/jennybc/orly-full-res/blob/master/changinstuff-big.png"><img src="https://github.com/jennybc/orly-full-res/blob/master/changinstuff-big-smaller.png"></a> <a href="https://github.com/jennybc/orly-full-res/blob/master/uninformativegitcommit-big.png"><img src="https://github.com/jennybc/orly-full-res/blob/master/uninformativegitcommit-big-smaller.png"></a>
+```
+
+-   also explored the weights of cats at SF SPCA, and found the [fattest cat](https://github.com/jennybc/fattest-cat)
+
+``` r
+url <- "https://raw.githubusercontent.com/jennybc/fattest-cat/master/fattest-cat.R"
+rfile <- basename(url)
+download.file(url, rfile)
+source(rfile)
+```
+
+Q's
+===
+
+-   what about versioning data? for small to medium you can easily use github, might need to just keep it in a separate repo and git that, or might need to use gitfs for large file systems
+-   in the analysis pipeline, if I want to generate an html (or pdf etc) file along with the github\_document, is there a way to always generate both? you can "keep md" but can you "keep github\_document"? Sort of, but you need to use `rmarkdown::render` (in theory, though JB can't get it to work yet for github\_docs...)
+-   why is `fs` package making my Rstudio crash every time I want to view an object created with it? May be related to this [issue](https://github.com/r-lib/fs/issues/58)
+>>>>>>> upstream/master
